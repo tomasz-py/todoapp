@@ -1,7 +1,7 @@
 import React from "react";
 
 class NewToDo extends React.Component {
-  state = { toDo: "", toDoErr: "" };
+  state = { toDo: "", toDoErr: "", isValid: true };
 
   onInputChange = event => {
     this.setState({ toDo: event.target.value });
@@ -23,9 +23,10 @@ class NewToDo extends React.Component {
     if (this.state.toDo.length < 1) {
       toDoErr = "Nothing to add";
       this.setState({ toDoErr: toDoErr });
-
+      this.setState({ isValid: false });
       return false;
     }
+    this.setState({ isValid: true });
     return true;
   };
 
@@ -40,7 +41,16 @@ class NewToDo extends React.Component {
             value={this.state.toDo}
           />
         </form>
-        <div>{this.state.toDoErr}</div>
+        <div style={{ fontSize: 12, color: "red" }} />
+        <div>
+          {this.state.isValid ? (
+            <div />
+          ) : (
+            <div className="ui pointing red basic label">
+              {this.state.toDoErr}
+            </div>
+          )}
+        </div>
       </div>
     );
   }
