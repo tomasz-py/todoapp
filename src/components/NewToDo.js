@@ -32,16 +32,21 @@ class NewToDo extends React.Component {
 
   render() {
     return (
-      <div className="ui container">
+      <div className="ui center aligned segment">
         <form onSubmit={this.onFormSubmit}>
-          <input
-            type="text"
-            placeholder="Something to do!"
-            onChange={this.onInputChange}
-            value={this.state.toDo}
-          />
+          <div className="ui fluid input">
+            <input
+              type="text"
+              placeholder="Something to do!"
+              onChange={this.onInputChange}
+              value={this.state.toDo}
+            />
+            <div className="ui button" onClick={this.onFormSubmit}>
+              ToDo!
+            </div>
+          </div>
         </form>
-        <div style={{ fontSize: 12, color: "red" }} />
+
         <div>
           {this.state.isValid ? (
             <div />
