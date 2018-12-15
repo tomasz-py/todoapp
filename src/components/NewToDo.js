@@ -1,7 +1,7 @@
 import React from "react";
 
 class NewToDo extends React.Component {
-  state = { toDo: "" };
+  state = { toDo: "", toDoErr: "" };
 
   onInputChange = event => {
     this.setState({ toDo: event.target.value });
@@ -9,13 +9,29 @@ class NewToDo extends React.Component {
 
   onFormSubmit = event => {
     event.preventDefault();
-    this.props.addTodo(this.state.toDo);
-    this.setState({ toDo: "" });
+
+    const isValid = this.validate();
+    if (isValid) {
+      this.props.addTodo(this.state.toDo);
+      this.setState({ toDo: "", toDoErr: "" });
+    }
+  };
+
+  validate = () => {
+    let toDoErr = "";
+
+    if (this.state.toDo.length < 1) {
+      toDoErr = "Nothing to add";
+      this.setState({ toDoErr: toDoErr });
+
+      return false;
+    }
+    return true;
   };
 
   render() {
     return (
-      <div>
+      <div className="ui container">
         <form onSubmit={this.onFormSubmit}>
           <input
             type="text"
@@ -24,6 +40,7 @@ class NewToDo extends React.Component {
             value={this.state.toDo}
           />
         </form>
+        <div>{this.state.toDoErr}</div>
       </div>
     );
   }
