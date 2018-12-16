@@ -1,8 +1,10 @@
 import React from "react";
+import ToDoItem from "./ToDoItem";
 
-class TodoList extends React.Component {
-  render() {
-    return <div>TodoList</div>;
-  }
-}
-export default TodoList;
+const ToDoList = ({ toDoes }) => {
+  const renderedList = toDoes.map((toDo, index) => {
+    return <ToDoItem key={index} toDo={toDo} />;
+  });
+  return <div className="ui relaxed divided list">{renderedList}</div>;
+};
+export default ToDoList;

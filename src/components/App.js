@@ -7,14 +7,14 @@ class App extends React.Component {
 
   addTodo = toDo => {
     this.setState({ toDoes: [...this.state.toDoes, toDo] }, () => {
-      console.log(this.state.toDoes);
+      //console.log(this.state.toDoes);
     });
   };
 
   render() {
     return (
       <div className="ui container">
-        <ToDoList />
+        <ToDoList toDoes={this.state.toDoes} />
         <NewToDo addTodo={this.addTodo} />
       </div>
     );
