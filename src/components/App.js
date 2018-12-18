@@ -3,12 +3,24 @@ import NewToDo from "./NewToDo";
 import ToDoList from "./ToDoList";
 
 class App extends React.Component {
-  state = { toDoes: [] };
+  state = {
+    lastId: 1,
+    toDoes: []
+  };
 
   addTodo = toDo => {
-    this.setState({ toDoes: [...this.state.toDoes, toDo] }, () => {
-      //console.log(this.state.toDoes);
-    });
+    var newToDoValue = { id: this.state.lastId, value: toDo, isDone: false };
+    var newId = this.state.lastId + 1;
+
+    this.setState(
+      {
+        lastId: newId,
+        toDoes: [...this.state.toDoes, newToDoValue]
+      },
+      () => {
+        //console.log(this.state.toDoes);
+      }
+    );
   };
 
   render() {
