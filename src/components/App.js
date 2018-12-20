@@ -4,17 +4,17 @@ import ToDoList from "./ToDoList";
 
 class App extends React.Component {
   state = {
-    lastId: 1,
+    nextId: 1,
     toDoes: []
   };
 
   addTodo = toDo => {
-    var newToDoValue = { id: this.state.lastId, value: toDo, isDone: false };
-    var newId = this.state.lastId + 1;
+    var newToDoValue = { id: this.state.nextId, value: toDo, isDone: false };
+    var newId = this.state.nextId + 1;
 
     this.setState(
       {
-        lastId: newId,
+        nextId: newId,
         toDoes: [...this.state.toDoes, newToDoValue]
       },
       () => {
