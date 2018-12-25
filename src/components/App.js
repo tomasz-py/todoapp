@@ -23,10 +23,25 @@ class App extends React.Component {
     );
   };
 
+  changeIsDone = index => {
+    //console.log(index);
+
+    var toDoesArray = [...this.state.toDoes];
+    var toDoObject = toDoesArray[index];
+    toDoObject.isDone = !toDoObject.isDone;
+    toDoesArray.splice(index, 1, toDoObject);
+
+    this.setState({
+      toDoes: toDoesArray
+    });
+
+    //console.log(this.state);
+  };
+
   render() {
     return (
       <div className="ui container">
-        <ToDoList toDoes={this.state.toDoes} />
+        <ToDoList toDoes={this.state.toDoes} changeIsDone={this.changeIsDone} />
         <NewToDo addTodo={this.addTodo} />
       </div>
     );

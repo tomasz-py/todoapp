@@ -1,3 +1,7 @@
 .delete-todo {
   float: right;
 }
+
+.toDoDone {
+  text-decoration: line-through;
+}
