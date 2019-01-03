@@ -1,13 +1,19 @@
 import React from "react";
 import "./ToDoItem.css";
 
-const ToDoItem = ({ toDo, changeIsDone, index }) => {
-  //return <div style={{ color: "white" }}>{toDo}</div>;
-
+const ToDoItem = ({ toDo, changeIsDone }) => {
   return (
     <div className="item">
       <div className="content">
-        <i className="check icon" onClick={() => changeIsDone(index)} />
+        {toDo.isDone ? (
+          <i
+            className="x icon red icon"
+            onClick={() => changeIsDone(toDo.id)}
+          />
+        ) : (
+          <i className="check icon" onClick={() => changeIsDone(toDo.id)} />
+        )}
+
         {toDo.isDone ? (
           <label className="toDoDone">{toDo.value}</label>
         ) : (

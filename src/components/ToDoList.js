@@ -12,8 +12,7 @@ const ToDoList = ({ toDoes, changeIsDone }) => {
       />
     );
   });
-  //const renderedList = toDoes.value;
-  //console.log(toDoes);
+
   return (
     <div className="ui inverted segment">
       <div className="ui inverted relaxed divided list">{renderedList}</div>
