@@ -5,7 +5,8 @@ import ToDoList from "./ToDoList";
 class App extends React.Component {
   state = {
     nextId: 1,
-    toDoes: []
+    toDoes: [],
+    trash: []
   };
 
   addTodo = toDo => {
@@ -35,20 +36,43 @@ class App extends React.Component {
     });
   };
 
-  render() {
-    var isDoneOrNo = value => {
-      if (this.state.toDoes.length > 0) {
-        return this.state.toDoes.filter(toDo => {
-          return toDo.isDone === value;
-        });
-      } else return [];
-    };
+  isDoneOrNo = value => {
+    if (this.state.toDoes.length > 0) {
+      return this.state.toDoes.filter(toDo => {
+        return toDo.isDone === value;
+      });
+    } else return [];
+  };
 
+  moveToTrash = id => {
+    const toMove = this.state.toDoes.filter(toDo => {
+      return toDo.id === id;
+    });
+
+    const afterMove = this.state.toDoes.filter(toDo => {
+      return toDo.id !== id;
+    });
+
+    this.setState({
+      trash: [...this.state.trash, toMove],
+      toDoes: afterMove
+    });
+  };
+
+  render() {
     return (
       <div className="ui container">
-        <ToDoList toDoes={isDoneOrNo(false)} changeIsDone={this.changeIsDone} />
+        <ToDoList
+          toDoes={this.isDoneOrNo(false)}
+          changeIsDone={this.changeIsDone}
+          moveToTrash={this.moveToTrash}
+        />
         <NewToDo addTodo={this.addTodo} />
-        <ToDoList toDoes={isDoneOrNo(true)} changeIsDone={this.changeIsDone} />
+        <ToDoList
+          toDoes={this.isDoneOrNo(true)}
+          changeIsDone={this.changeIsDone}
+          moveToTrash={this.moveToTrash}
+        />
       </div>
     );
   }

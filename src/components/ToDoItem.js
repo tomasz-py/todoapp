@@ -1,7 +1,7 @@
 import React from "react";
 import "./ToDoItem.css";
 
-const ToDoItem = ({ toDo, changeIsDone }) => {
+const ToDoItem = ({ toDo, changeIsDone, moveToTrash }) => {
   return (
     <div className="item">
       <div className="content">
@@ -19,7 +19,10 @@ const ToDoItem = ({ toDo, changeIsDone }) => {
         ) : (
           <label>{toDo.value}</label>
         )}
-        <i className="trash alternate outline icon delete-todo" />
+        <i
+          className="trash alternate outline icon delete-todo"
+          onClick={() => moveToTrash(toDo.id)}
+        />
       </div>
     </div>
   );

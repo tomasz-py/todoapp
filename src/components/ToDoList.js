@@ -1,7 +1,7 @@
 import React from "react";
 import ToDoItem from "./ToDoItem";
 
-const ToDoList = ({ toDoes, changeIsDone }) => {
+const ToDoList = ({ toDoes, changeIsDone, moveToTrash }) => {
   const renderedList = toDoes.map((toDo, index) => {
     return (
       <ToDoItem
@@ -9,6 +9,7 @@ const ToDoList = ({ toDoes, changeIsDone }) => {
         toDo={toDo}
         changeIsDone={changeIsDone}
         index={index}
+        moveToTrash={moveToTrash}
       />
     );
   });
