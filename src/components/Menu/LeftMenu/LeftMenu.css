@@ -1,0 +1,12 @@
+.oneSelector {
+  color: white;
+  cursor: pointer;
+
+  height: 30px;
+  vertical-align: middle;
+  line-height: 30px;
+}
+
+.oneSelector:hover {
+  background-color: rgb(54, 54, 54);
+}

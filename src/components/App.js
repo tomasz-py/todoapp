@@ -1,6 +1,7 @@
 import React from "react";
 import NewToDo from "./NewToDo";
 import ToDoList from "./ToDoList";
+import LeftMenu from "./Menu/LeftMenu/LeftMenu";
 
 class App extends React.Component {
   state = {
@@ -25,7 +26,7 @@ class App extends React.Component {
   };
 
   changeIsDone = id => {
-    var afterChange = [...this.state.toDoes];
+    const afterChange = [...this.state.toDoes];
     afterChange.forEach(toDo => {
       if (toDo.id === id) {
         toDo.isDone = !toDo.isDone;
@@ -62,17 +63,27 @@ class App extends React.Component {
   render() {
     return (
       <div className="ui container">
-        <ToDoList
-          toDoes={this.isDoneOrNo(false)}
-          changeIsDone={this.changeIsDone}
-          moveToTrash={this.moveToTrash}
-        />
-        <NewToDo addTodo={this.addTodo} />
-        <ToDoList
-          toDoes={this.isDoneOrNo(true)}
-          changeIsDone={this.changeIsDone}
-          moveToTrash={this.moveToTrash}
-        />
+        <div className="ui divider" />
+        <div className="ui two column grid">
+          <div className="ui row">
+            <div className="three wide column">
+              <LeftMenu />
+            </div>
+            <div className="ten wide column">
+              <ToDoList
+                toDoes={this.isDoneOrNo(false)}
+                changeIsDone={this.changeIsDone}
+                moveToTrash={this.moveToTrash}
+              />
+              <NewToDo addTodo={this.addTodo} />
+              <ToDoList
+                toDoes={this.isDoneOrNo(true)}
+                changeIsDone={this.changeIsDone}
+                moveToTrash={this.moveToTrash}
+              />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
