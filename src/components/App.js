@@ -7,11 +7,20 @@ class App extends React.Component {
   state = {
     nextId: 1,
     toDoes: [],
-    trash: []
+    trash: [],
+    category: "",
+    selectedOption: "main"
   };
 
+  //Add new todo item with passed value
   addTodo = toDo => {
-    var newToDoValue = { id: this.state.nextId, value: toDo, isDone: false };
+    var newToDoValue = {
+      id: this.state.nextId,
+      value: toDo,
+      isDone: false,
+      isDeleted: false,
+      category: "main"
+    };
     var newId = this.state.nextId + 1;
 
     this.setState(
@@ -25,6 +34,7 @@ class App extends React.Component {
     );
   };
 
+  //Change isDone to opposite
   changeIsDone = id => {
     const afterChange = [...this.state.toDoes];
     afterChange.forEach(toDo => {
@@ -40,24 +50,71 @@ class App extends React.Component {
   isDoneOrNo = value => {
     if (this.state.toDoes.length > 0) {
       return this.state.toDoes.filter(toDo => {
-        return toDo.isDone === value;
+        return toDo.isDone === value && toDo.isDeleted === false;
       });
     } else return [];
   };
 
-  moveToTrash = id => {
-    const toMove = this.state.toDoes.filter(toDo => {
-      return toDo.id === id;
+  isDeletedOrNo = value => {
+    return this.state.toDoes.filter(toDo => {
+      return toDo.isDeleted === value;
     });
+  };
 
-    const afterMove = this.state.toDoes.filter(toDo => {
-      return toDo.id !== id;
+  //Change isDeleted to opposite
+  changeIsDeleted = id => {
+    const afterChange = [...this.state.toDoes];
+    afterChange.forEach(toDo => {
+      if (toDo.id === id) {
+        toDo.isDeleted = !toDo.isDeleted;
+      }
     });
-
     this.setState({
-      trash: [...this.state.trash, toMove],
-      toDoes: afterMove
+      toDoes: afterChange
     });
+
+    console.log(this.state.toDoes);
+  };
+
+  // moveToTrash = id => {
+  //   const toMove = this.state.toDoes.filter(toDo => {
+  //     return toDo.id === id;
+  //   });
+
+  //   const afterMove = this.state.toDoes.filter(toDo => {
+  //     return toDo.id !== id;
+  //   });
+
+  //   this.setState({
+  //     trash: [...this.state.trash, toMove],
+  //     toDoes: afterMove
+  //   });
+  // };
+
+  changeSelectedOption = selectedOption => {
+    this.setState({
+      selectedOption: selectedOption
+    });
+  };
+
+  isDeletedOrNo = value => {
+    return this.state.toDoes.filter(toDo => {
+      return toDo.isDeleted === value;
+    });
+  };
+
+  toDoesFilter = selectedOption => {
+    if (selectedOption === "main") {
+      return this.state.toDoes.filter(toDo => {
+        return toDo.isDeleted === false && toDo.isDone === false;
+      });
+    }
+    //Only deleted
+    else if (selectedOption === "deleted") {
+      return this.state.toDoes.filter(toDo => {
+        return toDo.isDeleted === true;
+      });
+    }
   };
 
   render() {
@@ -67,20 +124,24 @@ class App extends React.Component {
         <div className="ui two column grid">
           <div className="ui row">
             <div className="three wide column">
-              <LeftMenu />
+              <LeftMenu changeSelectedOption={this.changeSelectedOption} />
             </div>
             <div className="ten wide column">
               <ToDoList
-                toDoes={this.isDoneOrNo(false)}
+                toDoes={this.toDoesFilter(this.state.selectedOption)}
                 changeIsDone={this.changeIsDone}
-                moveToTrash={this.moveToTrash}
+                changeIsDeleted={this.changeIsDeleted}
               />
               <NewToDo addTodo={this.addTodo} />
-              <ToDoList
-                toDoes={this.isDoneOrNo(true)}
-                changeIsDone={this.changeIsDone}
-                moveToTrash={this.moveToTrash}
-              />
+              {this.state.selectedOption !== "deleted" ? (
+                <ToDoList
+                  toDoes={this.isDoneOrNo(true)}
+                  changeIsDone={this.changeIsDone}
+                  changeIsDeleted={this.changeIsDeleted}
+                />
+              ) : (
+                <div />
+              )}
             </div>
           </div>
         </div>
