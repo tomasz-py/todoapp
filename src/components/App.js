@@ -12,7 +12,7 @@ class App extends React.Component {
     selectedOption: "main"
   };
 
-  //Add new todo item with passed value
+  //Add new todo item with passed value + change nextID to +1
   addTodo = toDo => {
     var newToDoValue = {
       id: this.state.nextId,
@@ -47,6 +47,7 @@ class App extends React.Component {
     });
   };
 
+  //Checking if todo is done and not deleted
   isDoneOrNo = value => {
     if (this.state.toDoes.length > 0) {
       return this.state.toDoes.filter(toDo => {
@@ -72,24 +73,7 @@ class App extends React.Component {
     this.setState({
       toDoes: afterChange
     });
-
-    console.log(this.state.toDoes);
   };
-
-  // moveToTrash = id => {
-  //   const toMove = this.state.toDoes.filter(toDo => {
-  //     return toDo.id === id;
-  //   });
-
-  //   const afterMove = this.state.toDoes.filter(toDo => {
-  //     return toDo.id !== id;
-  //   });
-
-  //   this.setState({
-  //     trash: [...this.state.trash, toMove],
-  //     toDoes: afterMove
-  //   });
-  // };
 
   changeSelectedOption = selectedOption => {
     this.setState({
@@ -104,9 +88,16 @@ class App extends React.Component {
   };
 
   toDoesFilter = selectedOption => {
+    //Return not done and not deleted
     if (selectedOption === "main") {
       return this.state.toDoes.filter(toDo => {
         return toDo.isDeleted === false && toDo.isDone === false;
+      });
+    }
+    //Only done
+    else if (selectedOption === "done") {
+      return this.state.toDoes.filter(toDo => {
+        return toDo.isDone === true && toDo.isDeleted === false;
       });
     }
     //Only deleted
@@ -133,14 +124,6 @@ class App extends React.Component {
                 changeIsDeleted={this.changeIsDeleted}
               />
               <NewToDo addTodo={this.addTodo} />
-              {this.state.selectedOption !== "deleted" ? (
-                <ToDoList
-                  toDoes={this.isDoneOrNo(true)}
-                  changeIsDone={this.changeIsDone}
-                  changeIsDeleted={this.changeIsDeleted}
-                />
-              ) : (
-                <div />
               )}
             </div>
           </div>
