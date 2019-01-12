@@ -6,13 +6,11 @@ class LeftMenu extends React.Component {
   state = {};
 
   onDeletedClickedHandler = () => {
-    console.log(this.props);
     this.props.changeSelectedOption("deleted");
   };
 
   onMainClickedHandler = () => {
     this.props.changeSelectedOption("main");
-    console.log(this.props.selectedOption);
   };
 
   onDoneClickedHandler = () => {

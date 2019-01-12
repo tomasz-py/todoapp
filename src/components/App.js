@@ -8,7 +8,6 @@ class App extends React.Component {
     nextId: 1,
     toDoes: [],
     trash: [],
-    category: "",
     selectedOption: "main"
   };
 
@@ -29,7 +28,7 @@ class App extends React.Component {
         toDoes: [...this.state.toDoes, newToDoValue]
       },
       () => {
-        //console.log(this.state.toDoes);
+        //console.log(this.state);
       }
     );
   };
@@ -120,7 +119,10 @@ class App extends React.Component {
                 changeIsDone={this.changeIsDone}
                 changeIsDeleted={this.changeIsDeleted}
               />
-              <NewToDo addTodo={this.addTodo} />
+              {this.state.selectedOption === "main" ? (
+                <NewToDo addTodo={this.addTodo} />
+              ) : (
+                <div />
               )}
             </div>
           </div>
