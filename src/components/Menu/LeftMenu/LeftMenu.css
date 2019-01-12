@@ -10,3 +10,7 @@
 .oneSelector:hover {
   background-color: rgb(54, 54, 54);
 }
+
+.current {
+  background-color: rgb(54, 54, 54);
+}

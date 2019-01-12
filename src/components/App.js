@@ -56,11 +56,11 @@ class App extends React.Component {
     } else return [];
   };
 
-  isDeletedOrNo = value => {
-    return this.state.toDoes.filter(toDo => {
-      return toDo.isDeleted === value;
-    });
-  };
+  // isDeletedOrNo = value => {
+  //   return this.state.toDoes.filter(toDo => {
+  //     return toDo.isDeleted === value;
+  //   });
+  // };
 
   //Change isDeleted to opposite
   changeIsDeleted = id => {
@@ -78,12 +78,6 @@ class App extends React.Component {
   changeSelectedOption = selectedOption => {
     this.setState({
       selectedOption: selectedOption
-    });
-  };
-
-  isDeletedOrNo = value => {
-    return this.state.toDoes.filter(toDo => {
-      return toDo.isDeleted === value;
     });
   };
 
@@ -115,7 +109,10 @@ class App extends React.Component {
         <div className="ui two column grid">
           <div className="ui row">
             <div className="three wide column">
-              <LeftMenu changeSelectedOption={this.changeSelectedOption} />
+              <LeftMenu
+                changeSelectedOption={this.changeSelectedOption}
+                selectedOption={this.state.selectedOption}
+              />
             </div>
             <div className="ten wide column">
               <ToDoList

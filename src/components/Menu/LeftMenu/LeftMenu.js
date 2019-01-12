@@ -6,11 +6,13 @@ class LeftMenu extends React.Component {
   state = {};
 
   onDeletedClickedHandler = () => {
+    console.log(this.props);
     this.props.changeSelectedOption("deleted");
   };
 
   onMainClickedHandler = () => {
     this.props.changeSelectedOption("main");
+    console.log(this.props.selectedOption);
   };
 
   onDoneClickedHandler = () => {
@@ -20,15 +22,36 @@ class LeftMenu extends React.Component {
   render() {
     return (
       <div>
-        <div className="oneSelector" onClick={this.onMainClickedHandler}>
+        <div
+          className={
+            this.props.selectedOption === "main"
+              ? "oneSelector current"
+              : "oneSelector"
+          }
+          onClick={this.onMainClickedHandler}
+        >
           <i className="inbox icon" />
           <span className="items">Main ToDoes</span>
         </div>
-        <div className="oneSelector" onClick={this.onDoneClickedHandler}>
+        <div
+          className={
+            this.props.selectedOption === "done"
+              ? "oneSelector current"
+              : "oneSelector"
+          }
+          onClick={this.onDoneClickedHandler}
+        >
           <i className="check icon" />
           <span className="items">Done</span>
         </div>
-        <div className="oneSelector" onClick={this.onDeletedClickedHandler}>
+        <div
+          className={
+            this.props.selectedOption === "deleted"
+              ? "oneSelector current"
+              : "oneSelector"
+          }
+          onClick={this.onDeletedClickedHandler}
+        >
           <i className="trash alternate icon" />
           <span className="items">Deleted</span>
         </div>
