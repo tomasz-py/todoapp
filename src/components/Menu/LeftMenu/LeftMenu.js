@@ -54,7 +54,7 @@ class LeftMenu extends React.Component {
           <span className="items">Deleted</span>
         </div>
         <div className="ui divider" />
-        <CategoryList />
+        <CategoryList addCategory={this.props.addCategory} />
       </div>
     );
   }

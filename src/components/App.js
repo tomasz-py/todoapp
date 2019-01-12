@@ -8,7 +8,8 @@ class App extends React.Component {
     nextId: 1,
     toDoes: [],
     trash: [],
-    selectedOption: "main"
+    selectedOption: "main",
+    category: []
   };
 
   //Add new todo item with passed value + change nextID to +1
@@ -31,6 +32,13 @@ class App extends React.Component {
         //console.log(this.state);
       }
     );
+  };
+
+  addCategory = categoryName => {
+    const newCategory = [...this.state.category, categoryName];
+    this.setState({
+      category: newCategory
+    });
   };
 
   //Change isDone to opposite
@@ -111,6 +119,8 @@ class App extends React.Component {
               <LeftMenu
                 changeSelectedOption={this.changeSelectedOption}
                 selectedOption={this.state.selectedOption}
+                addCategory={this.addCategory}
+                category={this.state.category}
               />
             </div>
             <div className="ten wide column">
