@@ -1,16 +1,26 @@
 import React from "react";
 import NewToDo from "./NewToDo";
 import ToDoList from "./ToDoList";
+import LeftMenu from "./Menu/LeftMenu/LeftMenu";
 
 class App extends React.Component {
   state = {
     nextId: 1,
     toDoes: [],
-    trash: []
+    trash: [],
+    selectedOption: "main",
+    category: []
   };
 
+  //Add new todo item with passed value + change nextID to +1
   addTodo = toDo => {
-    var newToDoValue = { id: this.state.nextId, value: toDo, isDone: false };
+    var newToDoValue = {
+      id: this.state.nextId,
+      value: toDo,
+      isDone: false,
+      isDeleted: false,
+      category: "main"
+    };
     var newId = this.state.nextId + 1;
 
     this.setState(
@@ -19,13 +29,21 @@ class App extends React.Component {
         toDoes: [...this.state.toDoes, newToDoValue]
       },
       () => {
-        //console.log(this.state.toDoes);
+        //console.log(this.state);
       }
     );
   };
 
+  addCategory = categoryName => {
+    const newCategory = [...this.state.category, categoryName];
+    this.setState({
+      category: newCategory
+    });
+  };
+
+  //Change isDone to opposite
   changeIsDone = id => {
-    var afterChange = [...this.state.toDoes];
+    const afterChange = [...this.state.toDoes];
     afterChange.forEach(toDo => {
       if (toDo.id === id) {
         toDo.isDone = !toDo.isDone;
@@ -36,43 +54,89 @@ class App extends React.Component {
     });
   };
 
+  //Checking if todo is done and not deleted
   isDoneOrNo = value => {
     if (this.state.toDoes.length > 0) {
       return this.state.toDoes.filter(toDo => {
-        return toDo.isDone === value;
+        return toDo.isDone === value && toDo.isDeleted === false;
       });
     } else return [];
   };
 
-  moveToTrash = id => {
-    const toMove = this.state.toDoes.filter(toDo => {
-      return toDo.id === id;
-    });
+  // isDeletedOrNo = value => {
+  //   return this.state.toDoes.filter(toDo => {
+  //     return toDo.isDeleted === value;
+  //   });
+  // };
 
-    const afterMove = this.state.toDoes.filter(toDo => {
-      return toDo.id !== id;
+  //Change isDeleted to opposite
+  changeIsDeleted = id => {
+    const afterChange = [...this.state.toDoes];
+    afterChange.forEach(toDo => {
+      if (toDo.id === id) {
+        toDo.isDeleted = !toDo.isDeleted;
+      }
     });
-
     this.setState({
-      trash: [...this.state.trash, toMove],
-      toDoes: afterMove
+      toDoes: afterChange
     });
+  };
+
+  changeSelectedOption = selectedOption => {
+    this.setState({
+      selectedOption: selectedOption
+    });
+  };
+
+  toDoesFilter = selectedOption => {
+    //Return not done and not deleted
+    if (selectedOption === "main") {
+      return this.state.toDoes.filter(toDo => {
+        return toDo.isDeleted === false && toDo.isDone === false;
+      });
+    }
+    //Only done
+    else if (selectedOption === "done") {
+      return this.state.toDoes.filter(toDo => {
+        return toDo.isDone === true && toDo.isDeleted === false;
+      });
+    }
+    //Only deleted
+    else if (selectedOption === "deleted") {
+      return this.state.toDoes.filter(toDo => {
+        return toDo.isDeleted === true;
+      });
+    }
   };
 
   render() {
     return (
       <div className="ui container">
-        <ToDoList
-          toDoes={this.isDoneOrNo(false)}
-          changeIsDone={this.changeIsDone}
-          moveToTrash={this.moveToTrash}
-        />
-        <NewToDo addTodo={this.addTodo} />
-        <ToDoList
-          toDoes={this.isDoneOrNo(true)}
-          changeIsDone={this.changeIsDone}
-          moveToTrash={this.moveToTrash}
-        />
+        <div className="ui divider" />
+        <div className="ui two column grid">
+          <div className="ui row">
+            <div className="three wide column">
+              <LeftMenu
+                changeSelectedOption={this.changeSelectedOption}
+                selectedOption={this.state.selectedOption}
+                addCategory={this.addCategory}
+                category={this.state.category}
+              />
+            </div>
+            <div className="ten wide column">
+              <ToDoList
+                toDoes={this.toDoesFilter(this.state.selectedOption)}
+                changeIsDone={this.changeIsDone}
+                changeIsDeleted={this.changeIsDeleted}
+              />
+              {this.state.selectedOption === "main" ? (
+                <NewToDo addTodo={this.addTodo} />
+              ) : (
+                <div />
+              )}
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

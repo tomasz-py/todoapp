@@ -32,9 +32,9 @@ class NewToDo extends React.Component {
 
   render() {
     return (
-      <div className="ui center aligned segment">
+      <div className="ui inverted center aligned segment">
         <form onSubmit={this.onFormSubmit}>
-          <div className="ui fluid input">
+          <div className="ui inverted transparent fluid input">
             <input
               type="text"
               placeholder="Something to do!"

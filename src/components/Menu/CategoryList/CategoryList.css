@@ -1,0 +1,13 @@
+.categorySelector {
+  color: white;
+  cursor: pointer;
+
+  height: 30px;
+  vertical-align: middle;
+  line-height: 30px;
+}
+
+.categorySelector:not(.nohover):hover {
+  color: red;
+  background-color: rgb(54, 54, 54);
+}
