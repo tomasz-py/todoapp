@@ -35,10 +35,19 @@ class App extends React.Component {
   };
 
   addCategory = categoryName => {
-    const newCategory = [...this.state.category, categoryName];
-    this.setState({
-      category: newCategory
-    });
+    //validate if categoryName already exist
+    let validate = categoryName => {
+      return this.state.category.indexOf(categoryName) > -1;
+    };
+
+    if (!validate(categoryName)) {
+      const newCategory = [...this.state.category, categoryName];
+      this.setState({
+        category: newCategory
+      });
+      //change selected category to created category
+      this.changeSelectedOption(categoryName);
+    }
   };
 
   //Change isDone to opposite
@@ -105,6 +114,11 @@ class App extends React.Component {
     else if (selectedOption === "deleted") {
       return this.state.toDoes.filter(toDo => {
         return toDo.isDeleted === true;
+      });
+      //Only selected category
+    } else {
+      return this.state.toDoes.filter(toDo => {
+        return toDo.category === selectedOption;
       });
     }
   };

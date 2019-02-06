@@ -1,9 +1,13 @@
 import React from "react";
 import "../LeftMenu/LeftMenu.css";
 
-const CategoryItem = ({ category }) => {
+const CategoryItem = ({ category, selectedOption }) => {
   return (
-    <div className="oneSelector">
+    <div
+      className={
+        selectedOption === category ? "oneSelector current" : "oneSelector"
+      }
+    >
       <i className="circle icon" />
       {category}
     </div>

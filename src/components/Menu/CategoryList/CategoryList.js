@@ -71,7 +71,11 @@ class CategoryList extends React.Component {
     const renderList = this.props.category.map((c, index) => {
       return (
         <div className="categorySelector" key={index}>
-          <CategoryItem key={index} category={this.props.category[index]} />
+          <CategoryItem
+            key={index}
+            category={this.props.category[index]}
+            selectedOption={this.props.selectedOption}
+          />
         </div>
       );
     });
