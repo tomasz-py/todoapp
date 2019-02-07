@@ -12,7 +12,7 @@ class NewToDo extends React.Component {
 
     const isValid = this.validate();
     if (isValid) {
-      this.props.addTodo(this.state.toDo);
+      this.props.addTodo(this.state.toDo, this.props.category);
       this.setState({ toDo: "", toDoErr: "" });
     }
   };

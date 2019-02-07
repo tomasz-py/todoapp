@@ -13,13 +13,13 @@ class App extends React.Component {
   };
 
   //Add new todo item with passed value + change nextID to +1
-  addTodo = toDo => {
+  addTodo = (toDo, category = "main") => {
     var newToDoValue = {
       id: this.state.nextId,
       value: toDo,
       isDone: false,
       isDeleted: false,
-      category: "main"
+      category: category
     };
     var newId = this.state.nextId + 1;
 
@@ -96,7 +96,11 @@ class App extends React.Component {
     //Return not done and not deleted
     if (selectedOption === "main") {
       return this.state.toDoes.filter(toDo => {
-        return toDo.isDeleted === false && toDo.isDone === false;
+        return (
+          toDo.category === "main" &&
+          toDo.isDeleted === false &&
+          toDo.isDone === false
+        );
       });
     }
     //Only done
@@ -110,10 +114,14 @@ class App extends React.Component {
       return this.state.toDoes.filter(toDo => {
         return toDo.isDeleted === true;
       });
-      //Only selected category
+      //Only selected category and not done/deleted
     } else {
       return this.state.toDoes.filter(toDo => {
-        return toDo.category === selectedOption;
+        return (
+          toDo.category === selectedOption &&
+          toDo.isDone === false &&
+          toDo.isDeleted === false
+        );
       });
     }
   };
@@ -140,7 +148,10 @@ class App extends React.Component {
               />
               {this.state.selectedOption !== "done" &&
               this.state.selectedOption !== "deleted" ? (
-                <NewToDo addTodo={this.addTodo} />
+                <NewToDo
+                  addTodo={this.addTodo}
+                  category={this.state.selectedOption}
+                />
               ) : (
                 <div />
               )}
