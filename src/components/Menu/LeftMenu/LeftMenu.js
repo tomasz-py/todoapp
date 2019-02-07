@@ -58,6 +58,7 @@ class LeftMenu extends React.Component {
           addCategory={this.props.addCategory}
           category={this.props.category}
           selectedOption={this.props.selectedOption}
+          changeSelectedOption={this.props.changeSelectedOption}
         />
       </div>
     );

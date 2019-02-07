@@ -35,12 +35,7 @@ class App extends React.Component {
   };
 
   addCategory = categoryName => {
-    //validate if categoryName already exist
-    let validate = categoryName => {
-      return this.state.category.indexOf(categoryName) > -1;
-    };
-
-    if (!validate(categoryName)) {
+    if (this.state.category.indexOf(categoryName) < 0) {
       const newCategory = [...this.state.category, categoryName];
       this.setState({
         category: newCategory
@@ -143,7 +138,8 @@ class App extends React.Component {
                 changeIsDone={this.changeIsDone}
                 changeIsDeleted={this.changeIsDeleted}
               />
-              {this.state.selectedOption === "main" ? (
+              {this.state.selectedOption !== "done" &&
+              this.state.selectedOption !== "deleted" ? (
                 <NewToDo addTodo={this.addTodo} />
               ) : (
                 <div />

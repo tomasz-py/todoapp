@@ -75,6 +75,7 @@ class CategoryList extends React.Component {
             key={index}
             category={this.props.category[index]}
             selectedOption={this.props.selectedOption}
+            changeSelectedOption={this.props.changeSelectedOption}
           />
         </div>
       );
