@@ -6,15 +6,15 @@ class LeftMenu extends React.Component {
   state = {};
 
   onDeletedClickedHandler = () => {
-    this.props.changeSelectedOption("deleted");
+    this.props.changeSelectedOption("Deleted");
   };
 
   onMainClickedHandler = () => {
-    this.props.changeSelectedOption("main");
+    this.props.changeSelectedOption("Main");
   };
 
   onDoneClickedHandler = () => {
-    this.props.changeSelectedOption("done");
+    this.props.changeSelectedOption("Done");
   };
 
   render() {
@@ -22,7 +22,7 @@ class LeftMenu extends React.Component {
       <div>
         <div
           className={
-            this.props.selectedOption === "main"
+            this.props.selectedOption === "Main"
               ? "oneSelector current"
               : "oneSelector"
           }
@@ -33,7 +33,7 @@ class LeftMenu extends React.Component {
         </div>
         <div
           className={
-            this.props.selectedOption === "done"
+            this.props.selectedOption === "Done"
               ? "oneSelector current"
               : "oneSelector"
           }
@@ -44,7 +44,7 @@ class LeftMenu extends React.Component {
         </div>
         <div
           className={
-            this.props.selectedOption === "deleted"
+            this.props.selectedOption === "Deleted"
               ? "oneSelector current"
               : "oneSelector"
           }

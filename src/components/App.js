@@ -2,18 +2,19 @@ import React from "react";
 import NewToDo from "./NewToDo";
 import ToDoList from "./ToDoList";
 import LeftMenu from "./Menu/LeftMenu/LeftMenu";
+import "./App.css";
 
 class App extends React.Component {
   state = {
     nextId: 1,
     toDoes: [],
     trash: [],
-    selectedOption: "main",
+    selectedOption: "Main",
     category: []
   };
 
   //Add new todo item with passed value + change nextID to +1
-  addTodo = (toDo, category = "main") => {
+  addTodo = (toDo, category = "Main") => {
     var newToDoValue = {
       id: this.state.nextId,
       value: toDo,
@@ -94,23 +95,23 @@ class App extends React.Component {
 
   toDoesFilter = selectedOption => {
     //Return not done and not deleted
-    if (selectedOption === "main") {
+    if (selectedOption === "Main") {
       return this.state.toDoes.filter(toDo => {
         return (
-          toDo.category === "main" &&
+          toDo.category === "Main" &&
           toDo.isDeleted === false &&
           toDo.isDone === false
         );
       });
     }
     //Only done
-    else if (selectedOption === "done") {
+    else if (selectedOption === "Done") {
       return this.state.toDoes.filter(toDo => {
         return toDo.isDone === true && toDo.isDeleted === false;
       });
     }
     //Only deleted
-    else if (selectedOption === "deleted") {
+    else if (selectedOption === "Deleted") {
       return this.state.toDoes.filter(toDo => {
         return toDo.isDeleted === true;
       });
@@ -140,14 +141,17 @@ class App extends React.Component {
                 category={this.state.category}
               />
             </div>
-            <div className="ten wide column">
+            <div className="ten wide column inverted segment main-content">
+              <div className="ui inverted segment">
+                <div className="ui inverted">{this.state.selectedOption}</div>
+              </div>
               <ToDoList
                 toDoes={this.toDoesFilter(this.state.selectedOption)}
                 changeIsDone={this.changeIsDone}
                 changeIsDeleted={this.changeIsDeleted}
               />
-              {this.state.selectedOption !== "done" &&
-              this.state.selectedOption !== "deleted" ? (
+              {this.state.selectedOption !== "Done" &&
+              this.state.selectedOption !== "Deleted" ? (
                 <NewToDo
                   addTodo={this.addTodo}
                   category={this.state.selectedOption}
