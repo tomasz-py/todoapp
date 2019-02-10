@@ -7,7 +7,8 @@ import "../LeftMenu/LeftMenu.css";
 class CategoryList extends React.Component {
   state = {
     addNewCategory: false,
-    newCategory: ""
+    newCategory: "",
+    newname: ""
   };
 
   //Change addNewCategory and clean input field

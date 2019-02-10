@@ -1,0 +1,19 @@
+.categoryDots {
+  position: absolute;
+  right: 10px;
+  color: gray;
+}
+
+.categoryDots:hover {
+  color: white;
+}
+
+.CategoryMenu {
+  background-color: black;
+  position: absolute;
+  left: 180px;
+  top: 10px;
+  width: 400px;
+  z-index: 100;
+  display: none;
+}
